@@ -152,12 +152,15 @@ app/
 ## 🔄 Request Flow (Architecture Overview)
 
 ```mermaid
-flowchart TD
-    A[FastAPI Router (app/api)] --> B[Service Layer (app/services)]
-    B --> C[Repository Layer (app/repositories)]
-    C --> D[Database (PostgreSQL)]
-    B --> E[Cache (Redis)]
-    A --> F[Auth (JWT / OAuth2)]
+graph TD
+    C[Client / Frontend] -->|HTTP Request| A[FastAPI Router (app/api)]
+    A --> B[Service Layer (app/services)]
+    B --> R[Repository Layer (app/repositories)]
+    R --> D[(PostgreSQL Database)]
+    B --> X[(Redis - optional: cache, rate limit, sessions)]
+    R -->|Raw SQL (complex queries)| D
+    B -->|Business Logic Response| A
+    A -->|JSON Response| C
 ```
 
 📌 Explanation:
