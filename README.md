@@ -4,7 +4,6 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15+-336791?logo=postgresql)](https://www.postgresql.org/)
 [![Redis](https://img.shields.io/badge/Redis-7+-DC382D?logo=redis)](https://redis.io/)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker)](https://docs.docker.com/compose/)
-[![Tests](https://github.com/GratiaManullang03/aura/actions/workflows/ci.yml/badge.svg)](https://github.com/GratiaManullang03/aura/actions)
 
 A **backend template** for Atams projects built with **FastAPI**, **PostgreSQL**, and **Clean Architecture** principles.  
 Lightweight, production-ready, and easy to extend.
@@ -153,15 +152,12 @@ app/
 ## 🔄 Request Flow (Architecture Overview)
 
 ```mermaid
-flowchart LR
-    C[Client / Frontend] -->|HTTP Request| A[FastAPI Router (app/api)]
-    A --> B[Service Layer (app/services)]
-    B --> R[Repository Layer (app/repositories)]
-    R --> D[(PostgreSQL Database)]
-    B --> X[(Redis - optional: cache, rate limit, sessions)]
-    R -->|Raw SQL (complex queries)| D
-    B -->|Business Logic Response| A
-    A -->|JSON Response| C
+flowchart TD
+    A[FastAPI Router (app/api)] --> B[Service Layer (app/services)]
+    B --> C[Repository Layer (app/repositories)]
+    C --> D[Database (PostgreSQL)]
+    B --> E[Cache (Redis)]
+    A --> F[Auth (JWT / OAuth2)]
 ```
 
 📌 Explanation:
