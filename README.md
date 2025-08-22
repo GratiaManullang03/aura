@@ -177,12 +177,12 @@ graph TD
 
 📌 Explanation:
 
-1. **Client** sends request → handled by FastAPI routers (`app/api`).
-2. Router calls **Service Layer** (`app/services`) → business logic.
-3. Service interacts with **Repository Layer** (`app/repositories`).
-4. Repository queries **PostgreSQL** (via ORM or raw SQL).
-5. Optionally uses **Redis** for caching/sessions.
-6. Response bubbles back → returned as JSON to client.
+1. Client: Represents the user or another service that sends requests to your API.
+2. API Layer (FastAPI Router): This is the entry point of your application (e.g., main.py, api/v1/endpoints/users.py). This layer receives requests, validates incoming data using Schemas (Pydantic), and injects dependencies like database sessions.
+3. Service Layer: This layer contains the core business logic of the application (e.g., services/user.py). It separates business rules from the API implementation details.
+4. Repository Layer: Responsible for all interactions with the database (e.g., repositories/user.py). It abstracts the data query logic so that the Service Layer doesn't need to know how data is stored or retrieved. This layer uses Models (SQLAlchemy) to map objects to database tables.
+5. Database: Your persistent data storage system (e.g., PostgreSQL).
+6. Supporting Modules: These are the helper components used throughout the application, such as Schemas for data validation, Models for the ORM, Core for configuration and security, and Dependencies for dependency injection.
 
 ---
 
