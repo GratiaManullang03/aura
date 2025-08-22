@@ -153,14 +153,26 @@ app/
 
 ```mermaid
 graph TD
-    C[Client Frontend] -->|HTTP Request| A[FastAPI Router - app/api]
-    A --> B[Service Layer - app/services]
-    B --> R[Repository Layer - app/repositories]
-    R --> D[(PostgreSQL Database)]
-    B --> X[(Redis - optional: cache, rate limit, sessions)]
-    R -->|Raw SQL complex queries| D
-    B -->|Business Logic Response| A
-    A -->|JSON Response| C
+    A[Client] -->|HTTP Request| B(API Layer - FastAPI Router);
+
+    subgraph "Application Core"
+        B --> C{Service Layer};
+        C --> D[Repository Layer];
+        D --> E((Database));
+    end
+
+    subgraph "Supporting Modules"
+        F[Schemas - Pydantic]
+        G[Models - SQLAlchemy]
+        H[Core - Config, Security]
+        I[Dependencies - DB Session, Auth]
+    end
+
+    B -- Validates with --> F;
+    B -- Uses --> I;
+    C -- Uses --> H;
+    D -- Interacts with --> G;
+    I -- Provides Session to --> D;
 ```
 
 📌 Explanation:
