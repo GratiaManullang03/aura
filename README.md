@@ -153,12 +153,12 @@ app/
 
 ```mermaid
 graph TD
-    C[Client / Frontend] -->|HTTP Request| A[FastAPI Router (app/api)]
-    A --> B[Service Layer (app/services)]
-    B --> R[Repository Layer (app/repositories)]
+    C[Client Frontend] -->|HTTP Request| A[FastAPI Router - app/api]
+    A --> B[Service Layer - app/services]
+    B --> R[Repository Layer - app/repositories]
     R --> D[(PostgreSQL Database)]
     B --> X[(Redis - optional: cache, rate limit, sessions)]
-    R -->|Raw SQL (complex queries)| D
+    R -->|Raw SQL complex queries| D
     B -->|Business Logic Response| A
     A -->|JSON Response| C
 ```
