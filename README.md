@@ -1,4 +1,4 @@
-# ATAMS Backend Template
+# AURA (Atams Universal Runtime Architecture)
 
 Template backend untuk startup Atams menggunakan FastAPI, PostgreSQL, dan Clean Architecture.
 
@@ -14,7 +14,7 @@ Template backend untuk startup Atams menggunakan FastAPI, PostgreSQL, dan Clean 
 
 1. Clone repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/GratiaManullang03/aura.git
 cd aura
 ```
 
@@ -26,7 +26,7 @@ cp .env.example .env
 
 3. Jalankan dengan Docker Compose
 ```bash
-docker-compose up -d
+docker-compose up --build
 ```
 
 API akan berjalan di http://localhost:8000
@@ -114,8 +114,7 @@ Folder `tests/` sudah disiapkan untuk unit tests dan integration tests.
 
 ### Production dengan Docker
 ```bash
-docker build -t atams-backend .
-docker run -p 8000:8000 --env-file .env atams-backend
+docker-compose --env-file .env.prod -f docker-compose.yml up -d --build
 ```
 
 ### Scaling
